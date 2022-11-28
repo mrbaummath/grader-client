@@ -4,12 +4,14 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import CssBaseline from '@mui/material/CssBaseline'
 
 
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById('root')
+    <BrowserRouter>
+        <CssBaseline />
+            <App />
+    </BrowserRouter>,
+    document.getElementById('root')
 );

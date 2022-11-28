@@ -2,34 +2,121 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+//import app API and messages 
 import { signUp, signIn } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+//import material components
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Container from '@mui/material/Container'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup'
+import FormControl from '@mui/material/FormControl'
+import FormLabel from '@mui/material/FormLabel'
+import Grow from '@mui/material/Grow'
+import Select from '@mui/material/Select'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+
+//create theme
+const theme = createTheme()
+
+
 
 const SignUp = (props) => {
-	// constructor(props) {
-	// 	super(props)
 
-	// 	this.state = {
-	// 		email: '',
-	// 		password: '',
-	// 		passwordConfirmation: '',
-	// 	}
-	// }    
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [passwordConfirmation, setPasswordConfirmation] = useState('')
+
+    const [radioSelected, setRadioSelected] = useState(false)
+    const [accountType, setAccountType] = useState(null)
+    const [yearInSchool, setYearInSchool] = useState('')
+
+    //extra field for either teacher or student --> used in a Material Grow component
+
+    const ExtraFields = React.forwardRef((props, ref) => {
+
+        
+        if (accountType === 'teacher') {
+
+            return (
+            <div ref={ref} props={props}>
+                <TextField
+                name="title"
+                fullWidth
+                id="added_field"
+                label="Optional: Enter a title (i.e. Dr., Ms., Mr.)"
+                autoFocus
+            />
+            </div>
+            )
+        
+        } else if (accountType === 'student') {
+            return (
+                <div ref={ref} props={props}>
+                <FormControl fullWidth>
+                    <InputLabel id="year-label">Year In School</InputLabel>
+                    <Select
+                    labelId="year-label"
+                    id="year-select"
+                    value={yearInSchool}
+                    label="year"
+                    onChange= {(e)=>{setYearInSchool(e.target.value)}}
+                    >
+                        <MenuItem value={'FR'}>First Year</MenuItem>
+                        <MenuItem value={'SO'}>Sophomore</MenuItem>
+                        <MenuItem value={'JR'}>Junior</MenuItem>
+                        <MenuItem value={'SR'}>Senior</MenuItem>
+                    </Select>
+                </FormControl>
+                </div>
+            )
+        } else {
+            return (<></>)
+        }
+    })
+
+    const handleRadioChange = (event) => {
+        setRadioSelected(true)
+        setAccountType(event.target.value)
+    }
+
+
+	 
 
     const navigate = useNavigate()
 
-	const onSignUp = (event) => {
+	const handleSubmit = (event) => {
 		event.preventDefault()
-
+        const data = new FormData(event.currentTarget)
 		const { msgAlert, setUser } = props
-
-        const credentials = {email, password, passwordConfirmation}
+        //set account booleans based on radio selection
+        const isStudent = data.get('accountType') === 'student'
+        const isTeacher = data.get('accountType') === 'teacher'
+        //grab base credentials
+        const credentials = {
+            username: data.get('username'),
+            first_name: data.get('firstName'),
+            last_name: data.get('lastName'),
+            email: data.get('email'), 
+            password: data.get('password'),
+            password_confirmation: data.get('passwordConfirmation'),
+            is_teacher: isTeacher,
+            is_student: isStudent,
+            pronouns: data.get('pronouns'),
+        }
+        //append extra credenetials depending on account type
+        if (isTeacher) {
+            credentials.title = data.get('title')
+        } else if (isStudent) {
+            credentials.year_in_school = yearInSchool
+        }
+        
+        
 
 		signUp(credentials)
 			.then(() => signIn(credentials))
@@ -43,11 +130,8 @@ const SignUp = (props) => {
 			)
 			.then(() => navigate('/'))
 			.catch((error) => {
-                setEmail('')
-                setPassword('')
-                setPasswordConfirmation('')
 				msgAlert({
-					heading: 'Sign Up Failed with error: ' + error.message,
+					heading: `Sign Up Failed with error: ${error.message}`,
 					message: messages.signUpFailure,
 					variant: 'danger',
 				})
@@ -56,50 +140,131 @@ const SignUp = (props) => {
 
 
     return (
-        <div className='row'>
-            <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-                <h3>Sign Up</h3>
-                <Form onSubmit={onSignUp}>
-                    <Form.Group controlId='email'>
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control
-                            required
-                            type='email'
-                            name='email'
-                            value={email}
-                            placeholder='Enter email'
-                            onChange={e => setEmail(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='password'>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            required
-                            name='password'
-                            value={password}
-                            type='password'
-                            placeholder='Password'
-                            onChange={e => setPassword(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='passwordConfirmation'>
-                        <Form.Label>Password Confirmation</Form.Label>
-                        <Form.Control
-                            required
-                            name='passwordConfirmation'
-                            value={passwordConfirmation}
-                            type='password'
-                            placeholder='Confirm Password'
-                            onChange={e => setPasswordConfirmation(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Button variant='primary' type='submit'>
-                        Submit
-                    </Button>
-                </Form>
-            </div>
-        </div>
-    )
+        <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs">
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Typography component="h1" variant="h5">
+                        Sign Up
+                    </Typography>
+                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                        <Grid container spacing={2}>
+                            <Grid item sm={12}>
+                                <TextField
+                                    autoComplete="given-name"
+                                    name="username"
+                                    required
+                                    fullWidth
+                                    id="username"
+                                    label="Username"
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item sm={12}>
+                                <TextField
+                                    autoComplete="email"
+                                    name="email"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item sm={12}>
+                                <TextField
+                                    autoComplete="given-name"
+                                    name="firstName"
+                                    required
+                                    fullWidth
+                                    id="firstName"
+                                    label="First Name"
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item sm={12}>
+                                <TextField
+                                    autoComplete="family-name"
+                                    name="lastName"
+                                    required
+                                    fullWidth
+                                    id="lastName"
+                                    label="Last Name"
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item sm={12}>
+                                <TextField
+                                    name="pronouns"
+                                    fullWidth
+                                    id="pronouns"
+                                    label="Pronouns"
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item sm={12}>
+                                <TextField
+                                    autoComplete="new-password"
+                                    name="password"
+                                    required
+                                    fullWidth
+                                    id="password"
+                                    label="Password"
+                                    type="password"
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item sm={12}>
+                                <TextField
+                                    autoComplete="new-password"
+                                    name="passwordConfirmation"
+                                    type="password"
+                                    required
+                                    fullWidth
+                                    id="passwordConfirmation"
+                                    label="Confirm Password"
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item sm={6}>
+                                <FormControl>
+                                    <FormLabel id="account-type" >Signing up as a...</FormLabel>
+                                    <RadioGroup
+                                        aria-labelledby="account-type-radio-group"
+                                        name="accountType"
+                                        onChange={handleRadioChange}
+                                    >
+                                        <FormControlLabel value="teacher" control={<Radio />} label="Teacher"  />
+                                        <FormControlLabel value="student" control={<Radio />} label="Student" />
+                                    </RadioGroup>
+                                </FormControl>
+                            </Grid>
+                            <Grid item sm={12}>
+                                <Grow in={radioSelected}>
+                                    <ExtraFields />
+                                </Grow>
+                            </Grid>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Sign Up
+                            </Button>
+                        </Grid>
+                    </Box>
+                </Box>
+            </Container>
+        </ThemeProvider>
+      );
+    
 
 }
 

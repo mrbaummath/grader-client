@@ -6,14 +6,9 @@ import axios from 'axios'
 export const signUp = (credentials) => {
 	return axios({
 		method: 'POST',
-		url: `apiUrl/accounts/signup`,
-		data: {
-			credentials: {
-				username: credentials.username,
-				password: credentials.password,
-				password_confirmation: credentials.passwordConfirmation,
-			},
-		},
+		url: `${apiUrl}/accounts/signup/`,
+		data: credentials
+		
 	})
 }
 
