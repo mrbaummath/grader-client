@@ -6,6 +6,17 @@ const linkStyle = {
     color: 'white',
     textDecoration: 'none'
 }
+
+const teacherOptions = (
+    <>
+        <Nav.Item>
+			<Link to='teacher-home' style={linkStyle}>
+				View Courses
+			</Link>
+		</Nav.Item>
+    </>
+)
+
 const authenticatedOptions = (
 	<>
 		<Nav.Item>
@@ -18,6 +29,7 @@ const authenticatedOptions = (
 				Sign Out
 			</Link>
 		</Nav.Item>
+        
 	</>
 )
 
@@ -57,6 +69,7 @@ const Header = ({ user }) => (
 				)}
 				{alwaysOptions}
 				{user ? authenticatedOptions : unauthenticatedOptions}
+                {user && user.type === 'teacher' ? teacherOptions : null}
 			</Nav>
 		</Navbar.Collapse>
 	</Navbar>
