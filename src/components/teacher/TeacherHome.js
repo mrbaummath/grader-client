@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 //APP imports
-import { getMyCourses } from '../../api/classes'
+import { getTeacherCourses } from '../../api/classes'
 import { signUp, signIn } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import Container from '@mui/material/Container'
@@ -24,7 +24,7 @@ const TeacherHome = (props) => {
     
     //get teacher course on render 
     useEffect(()=> {
-        getMyCourses(user)
+        getTeacherCourses(user)
             .then(res => {
                 setCourses(res.data)
             })
@@ -38,7 +38,7 @@ const TeacherHome = (props) => {
 
     const coursesJSX = 
         courses ?
-        courses.map(course => (<CourseCard course={course} user={user}/>))
+        courses.map(course => (<CourseCard course={course} user={user} key={course.id}/>))
         :
         null
 
