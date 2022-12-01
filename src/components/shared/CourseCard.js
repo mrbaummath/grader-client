@@ -1,5 +1,5 @@
 //import react components
-import { Link } from 'react-router-dom'
+
 
 //import material components
 import Card from '@mui/material/Card'
@@ -9,18 +9,21 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
+import { Link } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+
 
 
 const CourseCard = ({user, course}) => {
+    const navigate = useNavigate()
     let description = ''
     let actionsJSX = null
     if (user.type === 'teacher') {
         description = `${course.subject}`
          actionsJSX =
             <CardActions>
-                <Button size="small">View</Button>
                 <Button size="small">Edit</Button>
-                <Link to= {`/gradebook/students/${course.id}`}>View Grades By Student</Link>
+                <Button size="small" onClick={() => navigate(`/gradebook/students/${course.id}`)}>Grades </Button>
             </CardActions>
     } else if (user.type === 'student') {
         description = `${course.teacher}: ${course.subject}`

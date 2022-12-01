@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 //app imports
-import { getCourseGradesByStudent } from '../../api/gradebooks'
+import { getCourseGradesByStudent, updateGradesFromTable } from '../../api/gradebooks'
 import GradeGrid from './GradeGrid'
 
-import { Box, Container } from '@mui/material'
+import { Box, Button, Container, Grid } from '@mui/material'
 
 
 
@@ -62,6 +62,12 @@ const GradesByStudent = ({user, msgAlert}) => {
         return newRow
     }
 
+    const handleGradeSave = (event) => {
+        updateGradesFromTable(user, gradesToUpdate.updatePairs)
+            .then((res) => setGradesToUpdate({"ids":[], "updatePairs":[]}))
+            .catch((error) => {console.log(error)})
+    }
+
     const handleProcessRowUpdateError = (error) => {
         console.log(error)
     }
@@ -107,11 +113,17 @@ const GradesByStudent = ({user, msgAlert}) => {
     if (gridColumns && gridRows) {
     
         return (
-            <Container>
-                <Box sx={{ height: '50vh', width: '75%'}}>
-                    <GradeGrid user={user} columns={gridColumns} rows={gridRows} processRowUpdate={processRowUpdate} onProcessRowUpdateError={handleProcessRowUpdateError} setEditedField={setEditedField} />
-                </Box>
-            </Container>
+            <Grid container spacing={2}>
+                <Grid item sm={12}>
+                    <Box sx={{ height: '50vh', width: '75%'}}>
+                        <GradeGrid user={user} columns={gridColumns} rows={gridRows} processRowUpdate={processRowUpdate} onProcessRowUpdateError={handleProcessRowUpdateError} setEditedField={setEditedField} />
+                    </Box>
+                </Grid>
+                <Grid item sm={4}>
+                    <Button disabled={gradesToUpdate.ids.length === 0} onClick={handleGradeSave}>Save Grades</Button>
+                </Grid>
+
+            </Grid>
         )
     } else {
         return (<></>)
