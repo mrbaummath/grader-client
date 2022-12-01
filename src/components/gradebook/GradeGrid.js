@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 // Material imports
-import { DataGrid, useGridApiEventHandler } from '@mui/x-data-grid'
-import { ContentPasteSearchOutlined } from '@mui/icons-material'
+import { DataGrid} from '@mui/x-data-grid'
+
 
 
 const GradeGrid = ({user, rows, columns, processRowUpdate, onProcessRowUpdateError, setEditedField}) => {

@@ -22,7 +22,7 @@ const CourseCard = ({user, course}) => {
         description = `${course.subject}`
          actionsJSX =
             <CardActions>
-                <Button size="small">Edit</Button>
+                <Button size="small" onClick={()=> navigate(`/teacher/${course.id}`)}>Details</Button>
                 <Button size="small" onClick={() => navigate(`/gradebook/students/${course.id}`)}>Grades </Button>
             </CardActions>
     } else if (user.type === 'student') {
@@ -30,7 +30,6 @@ const CourseCard = ({user, course}) => {
          actionsJSX = 
             <CardActions>
                 <Button size="small">View</Button>
-                <Button size="small">Edit</Button>
             </CardActions>
     }
 

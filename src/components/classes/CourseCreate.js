@@ -10,7 +10,7 @@ import AddIcon from '@mui/icons-material/Add'
 import CourseCreateForm from './CourseCreateForm'
 import AppModal from '../shared/AppModal'
 import { createCourseAndSections } from '../../api/classes'
-import { Box } from '@mui/material'
+import Box from '@mui/material/Box'
 import AppFAB from '../shared/AppFAB'
 
 const CourseCreate = ({user, msgAlert, triggerRefresh}) => {

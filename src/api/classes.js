@@ -39,7 +39,7 @@ export const createCourseAndSections = (user, courseData) => {
 export const retrieveCourse = (courseId, user) => {
     return axios({
 		method: 'GET',
-		url: `${apiUrl}/courses/${courseId}`,
+		url: `${apiUrl}/courses/${courseId}/`,
         headers: {
 			Authorization: `Token ${user.token}`
 		}		
@@ -85,7 +85,7 @@ export const createSection = (courseId, section, user) => {
 export const retrieveSection = (courseId, sectionId, user) => {
     return axios({
 		method: 'GET',
-		url: `${apiUrl}/courses/${courseId}/sections/${sectionId}`,
+		url: `${apiUrl}/courses/${courseId}/sections/${sectionId}/`,
         headers: {
 			Authorization: `Token ${user.token}`
 		}		
@@ -96,7 +96,7 @@ export const retrieveSection = (courseId, sectionId, user) => {
 export const updateSection = (courseId, section, user) => {
     return axios({
 		method: 'PATCH',
-		url: `${apiUrl}/courses/${courseId}/sections/${section.id}`,
+		url: `${apiUrl}/courses/${courseId}/sections/${section.id}/`,
         data: section,
         headers: {
 			Authorization: `Token ${user.token}`
@@ -108,7 +108,21 @@ export const updateSection = (courseId, section, user) => {
 export const deleteSection = (courseId, section, user) => {
     return axios({
 		method: 'DELETE',
-		url: `${apiUrl}/courses/${courseId}/sections/${section.id}`,
+		url: `${apiUrl}/courses/${courseId}/sections/${section.id}/`,
+        headers: {
+			Authorization: `Token ${user.token}`
+		}		
+	})
+}
+
+//specific update to add a student to a section
+export const addStudentToSection = (sectionId, studentId, user) => {
+    return axios({
+		method: 'PATCH',
+		url: `${apiUrl}/courses/students/${sectionId}/`,
+        data: {
+            "student_id": studentId
+        },
         headers: {
 			Authorization: `Token ${user.token}`
 		}		

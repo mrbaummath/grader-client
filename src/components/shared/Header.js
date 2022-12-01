@@ -10,7 +10,7 @@ const linkStyle = {
 const teacherOptions = (
     <>
         <Nav.Item>
-			<Link to='teacher-home' style={linkStyle}>
+			<Link to='teacher' style={linkStyle}>
 				View Courses
 			</Link>
 		</Nav.Item>

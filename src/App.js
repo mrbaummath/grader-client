@@ -14,6 +14,7 @@ import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import TeacherHome from './components/teacher/TeacherHome'
 import GradesByStudent from './components/gradebook/GradesByStudent'
+import CourseView from './components/classes/CourseView'
 
 const App = () => {
 
@@ -46,7 +47,8 @@ const App = () => {
 				<Header user={user} />
 				<Routes>
 					<Route path='/' element={<Home msgAlert={msgAlert} user={user} />} />
-                    <Route path='/teacher-home' element={<TeacherHome msgAlert={msgAlert} user={user} />} />
+                    <Route path='/teacher' element={<TeacherHome msgAlert={msgAlert} user={user} />} />
+                    <Route path='/teacher/:courseId' element={<CourseView msgAlert={msgAlert} user={user} />} />
 					<Route
 						path='/sign-up'
 						element={<SignUp msgAlert={msgAlert} setUser={setUser} />}
