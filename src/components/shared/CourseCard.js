@@ -1,3 +1,5 @@
+//import react components
+import { Link } from 'react-router-dom'
 
 //import material components
 import Card from '@mui/material/Card'
@@ -18,6 +20,7 @@ const CourseCard = ({user, course}) => {
             <CardActions>
                 <Button size="small">View</Button>
                 <Button size="small">Edit</Button>
+                <Link to= {`/gradebook/students/${course.id}`}>View Grades By Student</Link>
             </CardActions>
     } else if (user.type === 'student') {
         description = `${course.teacher}: ${course.subject}`

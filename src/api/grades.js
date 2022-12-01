@@ -1,9 +1,6 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios'
 
-import apiUrl from '../apiConfig'
-import axios from 'axios'
-
 //get all grades associated w/ a particular assignment (teacher only). 
 export const getAssignmentGrades = (user,assignmentId) => {
     return axios({

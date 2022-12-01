@@ -1,17 +1,15 @@
-// import React, { Component } from 'react'
+// React imports
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 
 //APP imports
 import { getTeacherCourses } from '../../api/classes'
-import { signUp, signIn } from '../../api/auth'
-import messages from '../shared/AutoDismissAlert/messages'
-import Container from '@mui/material/Container'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
 import CourseCard from '../shared/CourseCard'
 
 //import Material Components
+import Container from '@mui/material/Container'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import { Box } from '@mui/system'
 import Grid from '@mui/material/Grid'
