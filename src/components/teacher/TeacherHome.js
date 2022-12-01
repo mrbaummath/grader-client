@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom'
 
 //APP imports
 import { getTeacherCourses } from '../../api/classes'
-import CourseCard from '../shared/CourseCard'
+import CourseCard from '../classes/CourseCard'
+import CourseCreate from '../classes/CourseCreate'
 
 //import Material Components
 import Container from '@mui/material/Container'
@@ -18,7 +19,11 @@ const TeacherHome = (props) => {
     const { user, msgAlert } = props
 
     const [courses, setCourses] = useState(null)
+    const [update, setUpdate] = useState(false)
 
+    const triggerRefresh = () => {
+        setUpdate(prev => !prev)
+    }
     
     //get teacher course on render 
     useEffect(()=> {
@@ -27,7 +32,7 @@ const TeacherHome = (props) => {
                 setCourses(res.data)
             })
             .catch(error => console.log(error))
-    }, [])
+    }, [update])
 
 
     const theme = createTheme()
@@ -41,7 +46,7 @@ const TeacherHome = (props) => {
         null
 
     return (
-       
+   
     <ThemeProvider theme={theme}>
         <main>
             <Box
@@ -70,9 +75,14 @@ const TeacherHome = (props) => {
             <Grid container spacing={4}>
                 {coursesJSX}
             </Grid>
+            <CourseCreate user={user} msgAlert={msgAlert} triggerRefresh={triggerRefresh} /> 
         </Container>
+        
         </main>
+        
     </ThemeProvider>
+    
+  
    
     )
 }

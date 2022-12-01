@@ -24,14 +24,11 @@ export const getStudentClasses = (user) => {
 }
 
 //Create course and related sections
-export const createCourseAndSections = (user, course, sections) => {
+export const createCourseAndSections = (user, courseData) => {
     return axios({
 		method: 'POST',
 		url: `${apiUrl}/courses/`,
-        data: {
-            "course": course,
-            "sections": sections,
-        },
+        data: courseData,
         headers: {
 			Authorization: `Token ${user.token}`
 		}		
