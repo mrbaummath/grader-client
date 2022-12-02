@@ -19,6 +19,8 @@ const CourseView = ({user, msgAlert}) => {
     //state for course information
     const [course, setCourse] = useState(null)
     const [students, setStudents] = useState([])
+    //state to detect if a new assignment was created
+
 
     const {courseId} = useParams()
     
@@ -32,6 +34,7 @@ const CourseView = ({user, msgAlert}) => {
 
     }, [])
 
+
     //grab students once course data comes in
     useEffect(() => {
         if (course) {
@@ -40,6 +43,7 @@ const CourseView = ({user, msgAlert}) => {
                 retrieveSection(courseId, id, user)
                     .then(res => {
                         const sectionStudents = res.data.students
+                        sectionStudents.forEach(student => student.section = res.data.name)
                         setStudents(prev => [...prev, ...sectionStudents])
                     })
             })
@@ -49,16 +53,13 @@ const CourseView = ({user, msgAlert}) => {
 
     
 
-    if (course) {
-
         return (
             <>
                 <StudentGrid user={user} msgAlert={msgAlert} students={students} courseId={courseId}/>
+                <AssignmentGrid user={user} msgAlert={msgAlert} courseId={courseId} />
             </>
         )
-    } else {
-        return <></>
-    }
+   
 }
 
 export default CourseView

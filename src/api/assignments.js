@@ -5,7 +5,7 @@ import axios from 'axios'
 export const getCourseAssignments = (user,courseId) => {
     return axios({
         method: 'GET',
-		url: `${apiUrl}/gradebook/${courseId}/`,
+		url: `${apiUrl}/gradebook/assignments/${courseId}/`,
         headers: {
 			Authorization: `Token ${user.token}`
 		}
@@ -27,7 +27,7 @@ export const getStudentseAssignments = (user) => {
 export const createAssignment = (user, courseId, assignment) => {
     return axios({
         method: 'POST',
-		url: `${apiUrl}/gradebook/${courseId}/`,
+		url: `${apiUrl}/gradebook/assignments/${courseId}/`,
         data: assignment,
         headers: {
 			Authorization: `Token ${user.token}`
@@ -51,7 +51,7 @@ export const getAssignment = (user, assignmentId) => {
 export const updateAssignment = (user, assignment) => {
     return axios({
         method: 'PATCH',
-		url: `${apiUrl}/gradebook/assignments/${assignment.id}/`,
+		url: `${apiUrl}/gradebook/assignments/update/${assignment.id}/`,
         data: assignment,
         headers: {
 			Authorization: `Token ${user.token}`
