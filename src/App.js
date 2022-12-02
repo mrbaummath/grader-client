@@ -15,6 +15,7 @@ import ChangePassword from './components/auth/ChangePassword'
 import TeacherHome from './components/teacher/TeacherHome'
 import GradesByStudent from './components/gradebook/GradesByStudent'
 import CourseView from './components/classes/CourseView'
+import StudentHome from './components/student/StudentHome'
 
 const App = () => {
 
@@ -77,6 +78,13 @@ const App = () => {
                         element={
                         <RequireAuth user={user}>
                             <GradesByStudent msgAlert={msgAlert} user={user} />
+                        </RequireAuth>}
+                    />
+                    <Route
+                        path='/student/home'
+                        element={
+                        <RequireAuth user={user}>
+                            <StudentHome msgAlert={msgAlert} user={user} />
                         </RequireAuth>}
                     />
                     

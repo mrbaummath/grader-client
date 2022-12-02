@@ -14,12 +14,11 @@ import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { FormControl, FormLabel } from '@mui/material'
 
-//create theme
-const theme = createTheme()
+
 
 const AssignmentForm = ({handleSubmit, onChange, buttonText, assignment}) => {
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="s">
             <Box
                 sx={{
                     marginTop: 8,

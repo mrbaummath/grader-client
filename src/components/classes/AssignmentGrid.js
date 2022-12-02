@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 //App imports
 import { getCourseAssignments, updateAssignment } from '../../api/assignments'
-import AppFAB from '../shared/AppFAB'
+
 import AssignmentCreate from './AssignmentCreate'
 
 

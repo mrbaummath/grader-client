@@ -17,6 +17,16 @@ const teacherOptions = (
     </>
 )
 
+const studentOptions = (
+    <>
+        <Nav.Item>
+            <Link to='student/home' style={linkStyle}>
+                Grade Central
+            </Link>
+        </Nav.Item>
+    </>
+)
+
 const authenticatedOptions = (
 	<>
 		<Nav.Item>
@@ -70,6 +80,7 @@ const Header = ({ user }) => (
 				{alwaysOptions}
 				{user ? authenticatedOptions : unauthenticatedOptions}
                 {user && user.type === 'teacher' ? teacherOptions : null}
+                {user && user.type === 'student' ? studentOptions : null}
 			</Nav>
 		</Navbar.Collapse>
 	</Navbar>

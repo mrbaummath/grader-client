@@ -129,4 +129,17 @@ export const addStudentToSection = (sectionId, studentId, user) => {
 	})
 }
 
+//speciic update for a student to join a section
+export const joinClass = (user, code) => {
+    return axios({
+        method: 'PATCH',
+        url: `${apiUrl}/courses/students/join/${user.studentId}/`,
+        data: {
+            "code": code
+        },
+        headers: {
+			Authorization: `Token ${user.token}`
+		}
+    })
+}
 

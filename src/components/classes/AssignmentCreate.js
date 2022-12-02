@@ -52,7 +52,7 @@ const AssignmentCreate = ({user, msgAlert, triggerRefresh, courseId}) => {
         <div>
             <Box sx={{ '& > :not(style)': { m: 1 } }}>
                 <AppFAB 
-                    color={"primary"} 
+                    color={"secondary"} 
                     aria={"add-assignment"}
                     onClick={()=>{setModalOpen(true)}}
                     buttonContent={<AddIcon />}
