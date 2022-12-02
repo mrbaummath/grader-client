@@ -14,11 +14,11 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: '#c3e3cc',
+      main: '#038a5f',
       darker: '#053e85',
     },
     secondary: {
-        main: '#5e5257',
+        main: '#91a8c4',
         darker: '#2b2528'
     },
     neutral: {
@@ -26,7 +26,7 @@ const theme = createTheme({
       contrastText: '#fff',
     },
     background: {
-        // paper: '#dad8f0',
+        paper: '#dad8f0',
         default: '#dad8f0',
     }
   },

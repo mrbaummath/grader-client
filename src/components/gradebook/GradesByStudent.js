@@ -42,7 +42,7 @@ const GradesByStudent = ({user, msgAlert}) => {
     }
 
     const processRowUpdate = (newRow, oldRow) => {
-        //compare two values and 
+        //compare two values 
         if (newRow[editedField] !== oldRow[editedField]) {
             //get the grade Id associated w/ this row and edited field (i.e. the student's grade). The row's id is the same as the student's id 
             //start by filtering out the grades array returned from the serverAPI

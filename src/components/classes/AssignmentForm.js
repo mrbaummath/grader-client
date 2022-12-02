@@ -15,7 +15,7 @@ import { FormControl, FormLabel } from '@mui/material'
 
 
 
-const AssignmentForm = ({handleSubmit, onChange, buttonText, assignment}) => {
+const AssignmentForm = ({handleSubmit, buttonText, assignment}) => {
     return (
         <Container component="main" maxWidth="s">
             <Box
