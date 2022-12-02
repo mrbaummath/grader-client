@@ -12,10 +12,12 @@ const StudentGrid = ({students}) => {
 
     //set column fields 
     const columns = [
-        {field: 'last_name', flex:1, minWidth:100, maxWidth:200},
-        {field: 'first_name', flex:1, minWidth:100, maxWidth:200},
-        {field: 'section', flex:1, minWidth:100, maxWidth:200},
-        {field: 'email', flex:1, minWidth:100, maxWidth:200},
+        {field: 'last_name', headerName:'Last Name', flex:1, minWidth:100, maxWidth:200},
+        {field: 'first_name', headerName:'First Name', flex:1, minWidth:100, maxWidth:200},
+        {field: 'pronouns', flex:1, headerName:'Pronouns', minWidth:100, maxWidth:200},
+        {field: 'section', headerName:'Section', flex:1, minWidth:100, maxWidth:200},
+        {field: 'email', flex:1, headerName:'Email', minWidth:100, maxWidth:200},
+        
     ]
 
    

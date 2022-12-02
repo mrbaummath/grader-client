@@ -73,6 +73,7 @@ const CourseView = ({user, msgAlert}) => {
                             variant="h2"
                             align="center"
                             color="text.primary"
+                            sx= {{mt:4}}
                             gutterBottom
                         >
                             {`${course.name} Details` || ''}
