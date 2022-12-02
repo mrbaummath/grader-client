@@ -46,7 +46,7 @@ const TeacherHome = (props) => {
 
     const coursesJSX = 
         courses ?
-        courses.map(course => (<CourseCard course={course} user={user} key={course.id}/>))
+        courses.map(course => (<CourseCard course={course} user={user} key={course.id} msgAlert={msgAlert} />))
         :
         null
 

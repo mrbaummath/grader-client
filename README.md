@@ -5,8 +5,10 @@ This client will provide interactive user views for teachers and students.
 
 # Technologies
 - React
-- React-data-grid for spreadsheeet view
-- Semantic-React
+- Material-UI
+    - used for both styling and the data-grid component
+    - the data grid component provides much of the spreadsheet functonality. Even the community version will have some basic filtering and the ability to update from a spreadsheet view
+
     
 
 # User stories
@@ -14,7 +16,7 @@ This client will provide interactive user views for teachers and students.
 ## As a teacher, I want to...
 
 ### MVP
-- create a class with section details and add students to it
+- create a class with section details and have a code to give students 
 - create and grade assignments for students 
 - see all grades from a class and be able to enter/update grades from a spreadsheet view
 

@@ -45,14 +45,11 @@ const AssignmentCreate = ({user, msgAlert, triggerRefresh, courseId}) => {
 
     const mainComponent = <AssignmentForm 
         handleSubmit={handleAssignmentCreate}
-        // onChage = {handleChange}
         assignment={false}
         buttonText={'Add Assignment'}
     />
 
-    // const handleChange = (event) => {
-        
-    // }
+  
 
     return (
         <div>

@@ -19,7 +19,6 @@ const modalStyle = {
 
 const AppModal = ({mainComponent, headerText, open, setOpen}) => {
 
-    const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     return(

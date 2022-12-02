@@ -1,5 +1,5 @@
 //import react components
-
+import React, { useState } from 'react'
 
 //import material components
 import Card from '@mui/material/Card'
@@ -9,13 +9,16 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import { useNavigate } from 'react-router-dom'
+import AppModal from '../shared/AppModal'
+import SectionsList from './SectionsList'
 
 
 
 
 
 
-const CourseCard = ({user, course}) => {
+const CourseCard = ({user, course, msgAlert}) => {
+    const [sectionsModalOpen, setSectionsModalOpen] = useState(false)
     const navigate = useNavigate()
     let description = ''
     let actionsJSX = null
@@ -25,6 +28,7 @@ const CourseCard = ({user, course}) => {
             <CardActions>
                 <Button size="small" color='secondary' variant='contained' onClick={()=> navigate(`/teacher/${course.id}`)}>Details</Button>
                 <Button size="small" variant='contained' color='secondary' onClick={() => navigate(`/gradebook/students/${course.id}`)}>Grades </Button>
+                <Button size="small" variant='contained' color='secondary' onClick={() => setSectionsModalOpen(true)}>Sections </Button>
             </CardActions>
     } else if (user.type === 'student') {
         description = `${course.teacher}: ${course.subject}`
@@ -33,6 +37,13 @@ const CourseCard = ({user, course}) => {
                 <Button size="small" color='secondary'>View</Button>
             </CardActions>
     }
+
+    const modalContent = <SectionsList
+        user={user}
+        msgAlert={msgAlert}
+        courseId={course.id}
+        setModalOpen={setSectionsModalOpen}
+        />
 
     return (
         <Grid item xs={12} sm={6} md={4}>
@@ -50,7 +61,13 @@ const CourseCard = ({user, course}) => {
                 </CardContent>
                 {actionsJSX}
             </Card>
-        
+        <AppModal 
+            open={sectionsModalOpen}
+            setOpen={setSectionsModalOpen}
+            headerText='Course Sections'
+            mainComponent={modalContent}
+
+        />
         </Grid>
     )
 }
