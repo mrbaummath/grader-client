@@ -10,10 +10,9 @@ import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
 
-//create theme
-const theme = createTheme()
+
+
 
 const CourseCreateForm = ({handleSubmit}) => {
     const [extraCount, setExtraCount] = useState(0)
@@ -21,7 +20,6 @@ const CourseCreateForm = ({handleSubmit}) => {
 
 
     useEffect(() => {
-        console.log(extraCount)
         if (extraCount > 0) {
             setExtraSections(prev=>[...prev,extraCount])
         }
@@ -29,7 +27,6 @@ const CourseCreateForm = ({handleSubmit}) => {
 
 
     const addSectionField = () => {
-        console.log('clicked')
         setExtraCount(prev => (prev + 1))
        
     }

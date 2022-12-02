@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 // Material imports
 import { DataGrid} from '@mui/x-data-grid'
 
@@ -7,8 +7,6 @@ import { DataGrid} from '@mui/x-data-grid'
 const GradeGrid = ({user, rows, columns, processRowUpdate, onProcessRowUpdateError, setEditedField}) => {
 
     
-
-
 
     return (
         <DataGrid

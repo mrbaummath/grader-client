@@ -1,6 +1,6 @@
 // React imports
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+
 
 //material imports
 import AddIcon from '@mui/icons-material/Add'
@@ -34,7 +34,13 @@ const AssignmentCreate = ({user, msgAlert, triggerRefresh, courseId}) => {
                 triggerRefresh()
                 setModalOpen(false)
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                msgAlert({
+					heading: `Error:`,
+					message: `${error.message}`,
+					variant: 'danger',
+				})
+			})
     }
 
     const mainComponent = <AssignmentForm 

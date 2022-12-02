@@ -56,7 +56,7 @@ const App = () => {
 					/>
 					<Route
 						path='/sign-in'
-						element={<SignIn msgAlert={msgAlert} setUser={setUser} />}
+						element={<SignIn msgAlert={msgAlert} setUser={setUser}/>}
 					/>
                     <Route
                         path='/sign-out'

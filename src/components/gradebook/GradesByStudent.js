@@ -1,12 +1,12 @@
 // React imports
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 //app imports
 import { getCourseGradesByStudent, updateGradesFromTable } from '../../api/gradebooks'
 import GradeGrid from './GradeGrid'
 
-import { Box, Button, Container, Grid } from '@mui/material'
+import { Box, Button, Grid } from '@mui/material'
 
 
 
@@ -43,7 +43,7 @@ const GradesByStudent = ({user, msgAlert}) => {
 
     const processRowUpdate = (newRow, oldRow) => {
         //compare two values and 
-        if (newRow[editedField] != oldRow[editedField]) {
+        if (newRow[editedField] !== oldRow[editedField]) {
             //get the grade Id associated w/ this row and edited field (i.e. the student's grade). The row's id is the same as the student's id 
             //start by filtering out the grades array returned from the serverAPI
             const studentGrades = gradeData.find(studentGrades => studentGrades.id===newRow.id).course_graded_assignments
@@ -65,11 +65,21 @@ const GradesByStudent = ({user, msgAlert}) => {
     const handleGradeSave = (event) => {
         updateGradesFromTable(user, gradesToUpdate.updatePairs)
             .then((res) => setGradesToUpdate({"ids":[], "updatePairs":[]}))
-            .catch((error) => {console.log(error)})
+            .catch((error) => {
+                msgAlert({
+					heading: `Error:`,
+					message: `${error.message}`,
+					variant: 'danger',
+				})
+			})
     }
 
-    const handleProcessRowUpdateError = (error) => {
-        console.log(error)
+    const handleProcessRowUpdateError = (error) => { 
+         msgAlert({
+            heading: `Error:`,
+            message: `${error.message}`,
+            variant: 'danger',
+        })
     }
 
     const createColumnsArray = (assignmentData) => {
@@ -88,7 +98,13 @@ const GradesByStudent = ({user, msgAlert}) => {
                 setGradeData(res.data.grades)
                 setAssignments(res.data.assignments)
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                msgAlert({
+					heading: `Error:`,
+					message: `${error.message}`,
+					variant: 'danger',
+				})
+			})
             
     }, [])
 

@@ -1,6 +1,6 @@
 // React imports
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+
 
 
 //APP imports
@@ -10,7 +10,6 @@ import CourseCreate from '../classes/CourseCreate'
 
 //import Material Components
 import Container from '@mui/material/Container'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -31,11 +30,17 @@ const TeacherHome = (props) => {
             .then(res => {
                 setCourses(res.data)
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                msgAlert({
+					heading: `Error:`,
+					message: `${error.message}`,
+					variant: 'danger',
+				})
+			})
     }, [update])
 
 
-    const theme = createTheme()
+   
 
     //set courses JSX
 
@@ -47,31 +52,30 @@ const TeacherHome = (props) => {
 
     return (
    
-    <ThemeProvider theme={theme}>
+    
         <main>
             <Box
                 sx={{
-                    bgcolor: 'background.paper',
+                    bgcolor: '#dad8f0',
                     pt: 8,
                     pb: 6,
                 }}
             >
-                <Container maxWidth="sm">
+                <Container maxWidth="lg">
                     <Typography
                         component="h1"
                         variant="h2"
                         align="center"
                         color="text.primary"
-                        gutterBottom
                     >
-                        {`${user.title}'s Course`}
+                        {`${user.title}'s Courses`}
                     </Typography>
                     <Typography variant='h3' align='center' color='text.secondary' paragraph>
                         See your courses below. You can edit your courses or view details
                     </Typography>
                 </Container>
         </Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
+        <Container sx={{ py: 8 }} maxWidth="lg">
             <Grid container spacing={4}>
                 {coursesJSX}
             </Grid>
@@ -80,7 +84,7 @@ const TeacherHome = (props) => {
         
         </main>
         
-    </ThemeProvider>
+  
     
   
    

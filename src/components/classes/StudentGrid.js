@@ -1,20 +1,14 @@
 //React imports
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 // Material imports
 import { DataGrid} from '@mui/x-data-grid'
 import { Grid } from '@mui/material'
 import Box from '@mui/material/Box'
-//App imports
-import { retrieveSection } from '../../api/classes'
+
 
 
 
 const StudentGrid = ({students}) => {
-   
-
-   
-
-    
 
     //set column fields 
     const columns = [
@@ -29,7 +23,7 @@ const StudentGrid = ({students}) => {
     return (
         <Grid container spacing={2}>
                 <Grid item sm={12}>
-                    <Box sx={{ height: '50vh', width: '75%'}}>
+                    <Box sx={{ height: '50vh', width: '100%'}}>
                         <DataGrid 
                             rows={students}
                             columns={columns}

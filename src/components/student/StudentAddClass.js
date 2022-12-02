@@ -1,24 +1,20 @@
 // import React, { Component } from 'react'
-import React, {useState, useEffect} from 'react'
+import React, { useState } from 'react'
 
 
 
 //import material components
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import Input from '@mui/material/Input'
-import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { FormControl, FormLabel } from '@mui/material'
+
 import AddIcon from '@mui/icons-material/Add'
 
 //App imports
 import AppFAB from '../shared/AppFAB'
 import AppModal from '../shared/AppModal'
-import { addStudentToSection, joinClass } from '../../api/classes'
+import { joinClass } from '../../api/classes'
 
 const StudentAddClass = ({user, msgAlert, triggerRefresh}) => {
     //modal state
@@ -33,7 +29,13 @@ const StudentAddClass = ({user, msgAlert, triggerRefresh}) => {
                 setModalOpen(false)
                 triggerRefresh()
             })
-            .catch((error) => console.log(error))
+            .catch((error) => {
+                msgAlert({
+					heading: `Error:`,
+					message: `${error.message}`,
+					variant: 'danger',
+				})
+			})
         
     }
 

@@ -29,7 +29,13 @@ const AssignmentGrid = ({user, courseId, msgAlert}) => {
                 .then((res) => {
                     setAssignments(res.data)
                 })
-                .catch(error => console.log(error))
+                .catch(error => {
+                    msgAlert({
+                        heading: `Error:`,
+                        message: `${error.message}`,
+                        variant: 'danger',
+                    })
+                })
         }
     }, [courseId, updated])
 
@@ -48,8 +54,7 @@ const AssignmentGrid = ({user, courseId, msgAlert}) => {
 
     //function to handle row change
     const processRowUpdate = (newRow, oldRow) => {
-        console.log(editedField)
-        if (newRow[editedField] != oldRow[editedField]) {
+        if (newRow[editedField] !== oldRow[editedField]) {
             setAssignmentsToUpdate(prev => [...prev, newRow])
         }
         return newRow
@@ -60,18 +65,28 @@ const AssignmentGrid = ({user, courseId, msgAlert}) => {
             updateAssignment(user, assignment)
                 .then(res => {
                     setAssignmentsToUpdate([])})
-                .catch(err => console.log(err))
+                .catch(error => {
+                    msgAlert({
+                        heading: `Error:`,
+                        message: `${error.message}`,
+                        variant: 'danger',
+                    })
+                })
         })
     }
 
     const onProcessRowUpdateError = (error) => {
-        console.log(error)
+            msgAlert({
+                heading: `Error:`,
+                message: `${error.message}`,
+                variant: 'danger',
+            })
     }
 
     return (
         <Grid container spacing={2}>
                 <Grid item sm={12}>
-                    <Box sx={{ height: '50vh', width: '75%'}}>
+                    <Box sx={{ height: '50vh', width: '100%'}}>
                         <DataGrid 
                             rows={assignments}
                             columns={columns}

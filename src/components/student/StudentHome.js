@@ -1,20 +1,19 @@
 // React imports
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+
 
 
 //APP imports
 import StudentGradesGrid from './StudentGradesGrid'
-import AppFAB from '../shared/AppFAB'
-import AppModal from '../shared/AppModal'
+import StudentAddClass from './StudentAddClass'
 
 //import Material Components
 import Container from '@mui/material/Container'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
+
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import StudentAddClass from './StudentAddClass'
+
 
 
 
@@ -40,7 +39,7 @@ const StudentHome = (props) => {
                 
                     <Box
                         sx={{
-                            bgcolor: 'background.paper',
+                            bgcolor: '#dad8f0',
                             pt: 8,
                             pb: 6,
                         }}

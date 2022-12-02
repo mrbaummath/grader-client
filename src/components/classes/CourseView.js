@@ -1,11 +1,10 @@
 //React imports
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 
 //Material imports
 import Container from '@mui/material/Container'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -30,8 +29,13 @@ const CourseView = ({user, msgAlert}) => {
             .then((res) => {
                 setCourse(res.data)
             })
-            .catch((error) => console.log(error))
-
+            .catch((error) => {
+                msgAlert({
+					heading: `Error:`,
+					message: `${error.message}`,
+					variant: 'danger',
+				})
+			})
     }, [])
 
 
@@ -51,14 +55,57 @@ const CourseView = ({user, msgAlert}) => {
     }, [course])
 
 
-    
+    if (course) {
 
         return (
-            <>
-                <StudentGrid user={user} msgAlert={msgAlert} students={students} courseId={courseId}/>
-                <AssignmentGrid user={user} msgAlert={msgAlert} courseId={courseId} />
-            </>
+            <Container sx={{ mt: 4, mb: 4, width:'90vw' }}>
+                <Grid container spacing={3} justifyContent="center">
+                    <Box
+                        sx={{
+                            bgcolor: '#dad8f0',
+                            pt: 8,
+                            pb: 6,
+                        }}
+                    >
+                    
+                        <Typography
+                            component="h1"
+                            variant="h2"
+                            align="center"
+                            color="text.primary"
+                            gutterBottom
+                        >
+                            {`${course.name} Details` || ''}
+                        </Typography>
+                        <Grid item s={12}>
+                            <Typography
+                                component="h4"
+                                align="center"
+                                color="text.primary"
+                                sx={{mb:2}}
+                            >
+                                Student Details
+                            </Typography>
+                            <StudentGrid user={user} msgAlert={msgAlert} students={students} courseId={courseId}/>
+                        </Grid>
+                        <Grid item s={12}>
+                            <Typography
+                                component="h4"
+                                align="center"
+                                color="text.primary"
+                                sx={{mb:2, mt:2}}
+                            >
+                                Assignment Details
+                            </Typography>
+                            <AssignmentGrid user={user} msgAlert={msgAlert} courseId={courseId} />
+                        </Grid>
+                    </Box>
+                </Grid>
+            </Container>
         )
+    } else {
+        return (<></>)
+    }
    
 }
 

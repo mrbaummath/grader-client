@@ -14,17 +14,23 @@ const SignIn = (props) => {
 
     const navigate = useNavigate()
 
-	// handleChange = (event) =>
-	// 	this.setState({
-	// 		[event.target.name]: event.target.value,
-	// 	})
 
 	const onSignIn = (event) => {
 		event.preventDefault()
 		const { msgAlert, setUser } = props
         const credentials = {username, password}
 		signIn(credentials)
-			.then((res) => setUser(res.data.user))
+			.then((res) => {
+                setUser(res.data.user)
+                if (res.data.user.type === 'teacher') {
+                    navigate('/teacher')
+                } else if (res.data.user.type==='student') {
+                    navigate('/student/home')
+                } else {
+                    navigate('/')
+                }
+                
+            })
 			.then(() =>
 				msgAlert({
 					heading: 'Sign In Success',
@@ -32,7 +38,6 @@ const SignIn = (props) => {
 					variant: 'success',
 				})
 			)
-			.then(() => navigate('/'))
 			.catch((error) => {
                 setUsername('')
                 setPassword('')
@@ -71,7 +76,8 @@ const SignIn = (props) => {
                             onChange={e => setPassword(e.target.value)}
                         />
                     </Form.Group>
-                    <Button variant='primary' type='submit'>
+                    <br/>
+                    <Button variant='secondary' type='submit'>
                         Submit
                     </Button>
                 </Form>

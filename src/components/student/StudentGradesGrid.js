@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react'
 // Material imports
 import { DataGrid} from '@mui/x-data-grid'
-import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 //App imports
@@ -20,7 +19,13 @@ const StudentGradesGrid = ({user, msgAlert, updated}) => {
             .then((res) => {
                 setGrades(res.data)
             })
-            .catch((error) => console.log(error))
+            .catch((error) => {
+                msgAlert({
+					heading: `Error:`,
+					message: `${error.message}`,
+					variant: 'danger',
+				})
+			})
     }, [updated])
 
     //set columns

@@ -1,6 +1,6 @@
 // React imports
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+
 
 //material imports
 import AddIcon from '@mui/icons-material/Add'
@@ -42,7 +42,13 @@ const CourseCreate = ({user, msgAlert, triggerRefresh}) => {
                 setModalOpen(false)
                 triggerRefresh()
             })
-            .catch((error) => console.log(error))
+            .catch((error) => {
+                msgAlert({
+					heading: `Error:`,
+					message: `${error.message}`,
+					variant: 'danger',
+				})
+			})
     }
 
     const handleModalOpen = () => {
