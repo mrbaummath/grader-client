@@ -37,7 +37,6 @@ const theme = createTheme({
 
 ReactDOM.render(
     <BrowserRouter>
-        
         <ThemeProvider theme={theme}>
         <CssBaseline />
             <App />
